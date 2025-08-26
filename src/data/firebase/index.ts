@@ -6,4 +6,4 @@ initializeApp({
   credential: cert(serviceAccount as unknown as string)
 });
 
-export const db = getFirestore();
+export const context = getFirestore();
