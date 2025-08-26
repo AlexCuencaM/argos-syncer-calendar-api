@@ -1,4 +1,3 @@
-import { Firestore } from "firebase-admin/firestore";
 import { ReminderCalendarDataSource } from "../../domain/datasources/reminder-calendar.datasource";
 import { Reminder } from "../../domain/entities/reminder.entity";
 import { context } from "../../data/firebase";
