@@ -12,4 +12,5 @@ export class ReminderCalendarController {
         .then(data => res.json(data))
         .catch(err => res.status(400).json({ err }));
     }
+    
 }

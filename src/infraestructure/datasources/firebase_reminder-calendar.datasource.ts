@@ -4,6 +4,13 @@ import { context } from "../../data/firebase";
 
 export class ReminderCalendarDatasourceFirestore implements ReminderCalendarDataSource{
     private readonly _context = context;
+    async postAsync(reminder: Reminder): Promise<void> {
+        const reminderRef = this._context.collection('reminders').doc();        
+        await reminderRef.set({
+            ...reminder,
+            id: reminderRef.id,
+        })
+    }
     async getAllAsync(): Promise<Reminder[]> {
         const remindersSnapshot = await this._context.collection('reminders').get();
         return remindersSnapshot.docs.map(doc => ({

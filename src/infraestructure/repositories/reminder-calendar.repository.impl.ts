@@ -6,6 +6,9 @@ export class ReminderCalendarRepositoryImpl implements ReminderCalendarRepositor
     constructor(
         private readonly datasource:ReminderCalendarDataSource
     ){}
+    postAsync(newReminder: Reminder): Promise<void> {
+        return this.postAsync(newReminder);
+    }
     getAllAsync(): Promise<Reminder[]> {
         return this.datasource.getAllAsync();
     }
