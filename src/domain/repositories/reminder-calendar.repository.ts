@@ -1,6 +1,7 @@
+import { CreateReminderDto } from "../dtos/reminder-calendar/create_reminders-calendar.dto";
 import { Reminder } from "../entities/reminder.entity";
 
 export interface ReminderCalendarRepository{
     getAllAsync(): Promise<Reminder[]>;
-    postAsync(newReminder:Reminder): Promise<void>;
+    postAsync(newReminder:CreateReminderDto): Promise<void>;
 }

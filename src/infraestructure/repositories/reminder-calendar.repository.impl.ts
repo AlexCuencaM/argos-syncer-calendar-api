@@ -1,4 +1,5 @@
 import { ReminderCalendarDataSource } from "../../domain/datasources/reminder-calendar.datasource";
+import { CreateReminderDto } from "../../domain/dtos/reminder-calendar/create_reminders-calendar.dto";
 import { Reminder } from "../../domain/entities/reminder.entity";
 import { ReminderCalendarRepository } from "../../domain/repositories/reminder-calendar.repository";
 
@@ -6,8 +7,8 @@ export class ReminderCalendarRepositoryImpl implements ReminderCalendarRepositor
     constructor(
         private readonly datasource:ReminderCalendarDataSource
     ){}
-    postAsync(newReminder: Reminder): Promise<void> {
-        return this.postAsync(newReminder);
+    postAsync(newReminder: CreateReminderDto): Promise<void> {
+        return this.datasource.postAsync(newReminder);
     }
     getAllAsync(): Promise<Reminder[]> {
         return this.datasource.getAllAsync();

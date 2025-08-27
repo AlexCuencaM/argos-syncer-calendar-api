@@ -11,6 +11,7 @@ export class ReminderCalendarRoutes{
         const reminderCalendarController = new ReminderCalendarController(repository);
         
         router.get('/', reminderCalendarController.getAsync);
+        router.post('/', reminderCalendarController.postAsync);
         return router;
     }
 }

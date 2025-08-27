@@ -1,10 +1,11 @@
 import { ReminderCalendarDataSource } from "../../domain/datasources/reminder-calendar.datasource";
 import { Reminder } from "../../domain/entities/reminder.entity";
 import { context } from "../../data/firebase";
+import { CreateReminderDto } from "../../domain/dtos/reminder-calendar/create_reminders-calendar.dto";
 
 export class ReminderCalendarDatasourceFirestore implements ReminderCalendarDataSource{
     private readonly _context = context;
-    async postAsync(reminder: Reminder): Promise<void> {
+    async postAsync(reminder: CreateReminderDto): Promise<void> {
         const reminderRef = this._context.collection('reminders').doc();        
         await reminderRef.set({
             ...reminder,
