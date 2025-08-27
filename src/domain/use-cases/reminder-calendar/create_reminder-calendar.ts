@@ -3,14 +3,14 @@ import { Reminder } from "../../entities/reminder.entity";
 import { ReminderCalendarRepository } from "../../repositories/reminder-calendar.repository";
 
 export interface PostReminderCalendarUsecase{
-    execute(newReminder:CreateReminderDto): Promise<void>;
+    execute(newReminder:CreateReminderDto): Promise<CreateReminderDto>;
 }
 
 export class PostReminderCalendar implements PostReminderCalendarUsecase{
     constructor(
         private readonly repository: ReminderCalendarRepository
     ){}
-    execute(newReminder: CreateReminderDto): Promise<void> {
+    execute(newReminder: CreateReminderDto): Promise<CreateReminderDto> {
         return this.repository.postAsync(newReminder);
     }
     
