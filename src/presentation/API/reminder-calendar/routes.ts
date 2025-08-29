@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { ReminderCalendarController } from "./controller";
-import { ReminderCalendarDatasourceFirestore } from "../../infraestructure/datasources/firebase_reminder-calendar.datasource";
-import { ReminderCalendarRepositoryImpl } from "../../infraestructure/repositories/reminder-calendar.repository.impl";
+import { ReminderCalendarDatasourceFirestore } from "../../../infraestructure/datasources/firebase_reminder-calendar.datasource";
+import { ReminderCalendarRepositoryImpl } from "../../../infraestructure/repositories/reminder-calendar.repository.impl";
 
 export class ReminderCalendarRoutes{
     static get routes(): Router{

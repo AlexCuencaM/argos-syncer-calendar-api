@@ -1,8 +1,8 @@
 import { Response, Request } from "express";
-import { ReminderCalendarRepository } from "../../domain/repositories/reminder-calendar.repository";
-import { GetReminderCalendar } from "../../domain/use-cases/reminder-calendar/get_reminder-calendar";
-import { PostReminderCalendar } from "../../domain/use-cases/reminder-calendar/create_reminder-calendar";
-import { CreateReminderDto } from "../../domain/dtos/reminder-calendar/create_reminders-calendar.dto";
+import { ReminderCalendarRepository } from "../../../domain/repositories/reminder-calendar.repository";
+import { GetReminderCalendar } from "../../../domain/use-cases/reminder-calendar/get_reminder-calendar";
+import { PostReminderCalendar } from "../../../domain/use-cases/reminder-calendar/create_reminder-calendar";
+import { CreateReminderDto } from "../../../domain/dtos/reminder-calendar/create_reminders-calendar.dto";
 export class ReminderCalendarController {
     constructor(
         private readonly repository:ReminderCalendarRepository

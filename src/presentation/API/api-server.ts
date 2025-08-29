@@ -3,7 +3,7 @@ interface options{
     routes: Router;
     port: number;
 }
-export class Server{
+export class ApiServer{
     private app = express();
     private readonly port: number;
     private readonly routes: Router;
@@ -12,6 +12,8 @@ export class Server{
         this.routes = routes;
     }
     async start(){
+
+
         this.app.use( express.json() ); // raw
         this.app.use( express.urlencoded({ extended: false }) ); // x-www-form-urlencoded
         this.app.use( this.routes );

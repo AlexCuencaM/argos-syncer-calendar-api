@@ -1,5 +1,4 @@
 import { CreateReminderDto } from "../../dtos/reminder-calendar/create_reminders-calendar.dto";
-import { Reminder } from "../../entities/reminder.entity";
 import { ReminderCalendarRepository } from "../../repositories/reminder-calendar.repository";
 
 export interface PostReminderCalendarUsecase{
