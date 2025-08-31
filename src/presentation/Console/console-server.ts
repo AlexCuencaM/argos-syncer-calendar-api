@@ -20,9 +20,10 @@ export class ConsoleServer{
         const destinationDatasource = new GoogleCalendarDataSource();
         const repository = new SyncReminderRepositoryImpl(originDatasource, destinationDatasource);
         const getUseCase = new GetRemindersCalendar(repository);
-        const postUsecase = new PostReminderCalendar(repository);
+        // const postUsecase = new PostReminderCalendar(repository);
         const reminders = await getUseCase.execute();
         console.log("Fetched reminders:", reminders);
+
         // const results = await postUsecase.execute(reminders);
 
     }

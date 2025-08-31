@@ -2,6 +2,7 @@ import { envs } from "./config/envs";
 import { AppRoutes } from "./presentation/API/routes";
 import { ApiServer } from "./presentation/API/api-server";
 import { ConsoleServer } from "./presentation/Console/console-server";
+import { CREDENTIAL_PATH } from "./data/google-cloud";
 
 (async ()=>{
     await main();
@@ -13,8 +14,9 @@ async function main () {
     //     routes: AppRoutes.routes,
     // });
     // apiServer.start();
+    console.log("path:", CREDENTIAL_PATH);
     const consoleServer = new ConsoleServer({
         iscUrl: envs.CALENDAR_ICS_URL,
     });
-    consoleServer.start();
+    await consoleServer.start();
 }

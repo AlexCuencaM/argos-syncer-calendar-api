@@ -26,11 +26,13 @@
     "typescript": "^5.9.2"
   },
   "dependencies": {
+    "@google-cloud/local-auth": "^2.1.0",
     "dayjs": "^1.11.17",
     "dotenv": "^17.2.1",
     "env-var": "^7.5.0",
     "express": "^5.1.0",
     "firebase-admin": "^13.4.0",
+    "googleapis": "^105.0.0",
     "ical2json": "^4.1.0"
   }
 }
