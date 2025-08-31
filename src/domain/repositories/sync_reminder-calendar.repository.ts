@@ -3,5 +3,5 @@ import { Reminder } from "../entities/reminder.entity";
 
 export interface SyncReminderCalendarRepository{
     getAllAsync(): Promise<Reminder[]>; // For url
-    postMultipleRemindersAsync(newReminders: CreateReminderDto[]): Promise<CreateReminderDto[]>; // for X calendar
+    postMultipleRemindersAsync(newReminders: Reminder[]): Promise<CreateReminderDto[]>; // for X calendar
 }

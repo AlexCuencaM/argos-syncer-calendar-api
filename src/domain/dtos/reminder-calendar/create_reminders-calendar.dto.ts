@@ -2,12 +2,13 @@ export class CreateReminderDto{
     constructor(
         private readonly id: string | undefined,
         private readonly userId: string,
+        private readonly startDate: Date,
+        private readonly endDate: Date,
         private readonly title: string,
         private readonly remindAt: Date,
         private readonly createdAt: Date,
         private readonly updatedAt: Date,
         private readonly message: string | null = null,
-        private readonly alertAt: Date | null = null
     ) {}
     static create( props: {[key:string]: any} ): [string?, CreateReminderDto?]  {
 
@@ -15,6 +16,8 @@ export class CreateReminderDto{
         userId,
         title,
         remindAt,
+        endDate,
+        startDate,
         createdAt,
         updatedAt,
         message = null,
@@ -30,12 +33,13 @@ export class CreateReminderDto{
         new CreateReminderDto(
             '',
             userId,
+            startDate,
+            endDate,
             title,
             remindAt,
             createdAt,
             updatedAt,
-            message,
-            alertAt
+            message
         )
     ];
   }

@@ -5,8 +5,7 @@ export class Reminder{
         public title: string,
         public remindAt: Date,
         public createdAt: Date,
-        public updatedAt: Date,
+        public updatedAt: Date | null = null,
         public message: string | null = null,
-        public alertAt: Date | null = null
     ) {}
 }
