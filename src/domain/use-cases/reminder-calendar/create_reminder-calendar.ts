@@ -12,5 +12,5 @@ export class PostReminderCalendar implements PostReminderCalendarUsecase{
     execute(newReminder: CreateReminderDto): Promise<CreateReminderDto> {
         return this.repository.postAsync(newReminder);
     }
-    
+
 }

@@ -21,7 +21,6 @@ export class CreateReminderDto{
         createdAt,
         updatedAt,
         message = null,
-        alertAt = null
     } = props;
     if (!userId) return ['userId property is required'];
     if (!title) return ['title property is required'];

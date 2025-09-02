@@ -22,5 +22,14 @@ export class ReminderCalendarDatasourceFirestore implements ReminderCalendarData
             ...doc.data() as Reminder,
         }) );
     }
+    async postMultipleRemindersAsync(newReminder: Reminder[]): Promise<Reminder[]> {
+        const batch = this._context.batch();
+        newReminder.forEach((reminder) => {
+            const reminderRef = this._context.collection('reminders').doc();        
+            batch.set(reminderRef, reminder);
+        });
+        await batch.commit();
 
+        return Promise.resolve(newReminder); // Placeholder, implement actual return logic
+    }
 }
