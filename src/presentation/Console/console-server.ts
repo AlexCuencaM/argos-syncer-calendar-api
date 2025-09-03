@@ -1,14 +1,14 @@
-import { GetRemindersCalendar } from "../../domain/use-cases/sync-calendars/get_reminders-calendar";
+import { GetLastRemindersCalendar } from "../../domain/use-cases/sync-calendars/get_reminders-calendar";
 import { BlackboardCalendarDataSource } from "../../infraestructure/datasources/blackboard-calendar.datasource";
 import { GoogleCalendarDataSource } from "../../infraestructure/datasources/google-calendar.datasource";
 import { DayJsProvider } from "../../infraestructure/libs/dateProvider/dayJsProvider";
 import { convert } from "../../infraestructure/libs/icsToJson/converter";
 import { SyncReminderRepositoryImpl } from "../../infraestructure/repositories/sync_reminder-calendar.repository.impl";
-import { PostReminderCalendar } from "../../domain/use-cases/sync-calendars/create_reminders-calendar";
-import { PostMultipleRemindersCalendar } from "../../domain/use-cases/reminder-calendar/create_multiple__reminders-calendar";
+import { PostRemindersCalendar } from "../../domain/use-cases/sync-calendars/create_reminders-calendar";
+import { PostMultipleRemindersDb } from "../../domain/use-cases/reminder-calendar/create_multiple__reminders-calendar";
 import { ReminderCalendarRepositoryImpl } from "../../infraestructure/repositories/reminder-calendar.repository.impl";
 import { ReminderCalendarDatasourceFirestore } from "../../infraestructure/datasources/firebase_reminder-calendar.datasource";
-import { GetReminderCalendar } from "../../domain/use-cases/reminder-calendar/get_reminder-calendar";
+import { GetAllRemindersDb } from "../../domain/use-cases/reminder-calendar/get_reminder-calendar";
 
 interface options{
     iscUrl: string;
@@ -28,10 +28,10 @@ export class ConsoleServer{
         const repository = new SyncReminderRepositoryImpl(originDatasource, destinationDatasource);
         const firestoreRepository = new ReminderCalendarRepositoryImpl(firestoreDatasource);
         // Use cases
-        const getUseCase = new GetRemindersCalendar(repository);
-        const fireStoreUseCase = new GetReminderCalendar(firestoreRepository);
-        const postFirestoreUsecase = new PostMultipleRemindersCalendar(firestoreRepository);
-        const postUsecase = new PostReminderCalendar(repository);
+        const getUseCase = new GetLastRemindersCalendar(repository);
+        const fireStoreUseCase = new GetAllRemindersDb(firestoreRepository);
+        const postFirestoreUsecase = new PostMultipleRemindersDb(firestoreRepository);
+        const postUsecase = new PostRemindersCalendar(repository);
         // Execution
         const [newOrExistingReminders, existingRemindersResults] = await Promise.all([
             getUseCase.execute(),

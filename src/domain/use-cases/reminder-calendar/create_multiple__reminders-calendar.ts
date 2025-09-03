@@ -1,11 +1,11 @@
 import { Reminder } from "../../entities/reminder.entity";
 import { ReminderCalendarRepository } from "../../repositories/reminder-calendar.repository";
 
-export interface PostMultipleRemindersCalendarUsecase{
+export interface PostMultipleRemindersDbUsecase{
     execute(newOrExistingReminders:Reminder[], existingReminders: Reminder[]): Promise<Reminder[]>;
 }
 
-export class PostMultipleRemindersCalendar implements PostMultipleRemindersCalendarUsecase{
+export class PostMultipleRemindersDb implements PostMultipleRemindersDbUsecase{
     constructor(
         private readonly repository: ReminderCalendarRepository
     ){}

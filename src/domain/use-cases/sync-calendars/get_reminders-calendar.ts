@@ -1,13 +1,14 @@
 import { Reminder } from "../../entities/reminder.entity";
 import { SyncReminderCalendarRepository } from "../../repositories/sync_reminder-calendar.repository";
 export interface GetAllRemindersCalendarUsecase{
-    execute(): Promise<Reminder[]>
+    execute(from?: Date): Promise<Reminder[]>
 } 
-export class GetRemindersCalendar implements GetAllRemindersCalendarUsecase{
+export class GetLastRemindersCalendar implements GetAllRemindersCalendarUsecase{
     constructor(
         private readonly repository:SyncReminderCalendarRepository
     ){ }
-    execute(): Promise<Reminder[]> {
-        return this.repository.getAllAsync();
+    async execute(from: Date = new Date()): Promise<Reminder[]> {
+        const allReminders = await this.repository.getAllAsync();
+        return allReminders.filter(r => r.startDate.getMonth() >= from.getMonth())
     }
 }

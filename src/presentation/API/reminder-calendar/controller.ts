@@ -1,6 +1,6 @@
 import { Response, Request } from "express";
 import { ReminderCalendarRepository } from "../../../domain/repositories/reminder-calendar.repository";
-import { GetReminderCalendar } from "../../../domain/use-cases/reminder-calendar/get_reminder-calendar";
+import { GetAllRemindersDb } from "../../../domain/use-cases/reminder-calendar/get_reminder-calendar";
 import { PostReminderCalendar } from "../../../domain/use-cases/reminder-calendar/create_reminder-calendar";
 import { CreateReminderDto } from "../../../domain/dtos/reminder-calendar/create_reminders-calendar.dto";
 export class ReminderCalendarController {
@@ -9,7 +9,7 @@ export class ReminderCalendarController {
     ){
     }
     public getAsync = (req: Request, res: Response) => {
-        new GetReminderCalendar(this.repository)
+        new GetAllRemindersDb(this.repository)
         .execute()
         .then(data => res.json(data))
         .catch(err => res.status(400).json({ err }));

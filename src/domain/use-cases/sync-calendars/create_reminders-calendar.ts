@@ -6,7 +6,7 @@ export interface PostRemindersCalendarUsecase{
     execute(newReminder:Reminder[]): Promise<CreateReminderDto[]>;
 }
 
-export class PostReminderCalendar implements PostRemindersCalendarUsecase{
+export class PostRemindersCalendar implements PostRemindersCalendarUsecase{
     constructor(
         private readonly repository: SyncReminderCalendarRepository
     ){}

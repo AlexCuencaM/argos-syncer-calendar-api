@@ -1,9 +1,9 @@
 import { Reminder } from "../../entities/reminder.entity";
 import { ReminderCalendarRepository } from "../../repositories/reminder-calendar.repository";
-export interface GetAllReminderCalendarUsecase{
+export interface GetAllRemindersDbUsecase{
     execute(): Promise<Reminder[]>
 } 
-export class GetReminderCalendar implements GetAllReminderCalendarUsecase{
+export class GetAllRemindersDb implements GetAllRemindersDbUsecase{
     constructor(
         private readonly repository:ReminderCalendarRepository
     ){ }
