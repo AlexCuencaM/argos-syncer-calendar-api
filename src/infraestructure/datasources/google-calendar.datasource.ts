@@ -16,7 +16,7 @@ export class GoogleCalendarDataSource implements DestinationReminderCalendarData
         this.authClient = client!;
         this.calendar = google.calendar({ version: 'v3', auth: this.authClient });
         const eventsReminder: CreateReminderDto[] = [];
-        newReminder.forEach(reminder => {
+        for (const [, reminder] of newReminder.entries()) {
             const event = {
                 'summary': reminder.title,
                 'description': reminder.message,
@@ -40,7 +40,7 @@ export class GoogleCalendarDataSource implements DestinationReminderCalendarData
                 message: reminder.message,
                 id: reminder.id
             });
-            this.calendar.events.insert({
+            await this.calendar.events.insert({
                 calendarId: this.calendarId,
                 requestBody: event,
             }, (err: any, res: any) => {
@@ -51,9 +51,7 @@ export class GoogleCalendarDataSource implements DestinationReminderCalendarData
                 eventsReminder.push(dto!);
                 console.log('Event created: %s', res?.data.htmlLink);
             });
-        });
-        return await Promise.resolve(eventsReminder);
-        // const eventsReminder: calendar_v3.Schema$Event[] = [];
-        
+        }
+        return eventsReminder;
     }
 }
