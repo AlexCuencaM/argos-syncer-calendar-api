@@ -28,7 +28,6 @@ export class CreateReminderDto{
     if (!userId) errosValidations.push('userId property is required');
     if (!title) errosValidations.push('title property is required');
     if (!remindAt) errosValidations.push('remindAt property is required');
-    if (!createdAt) errosValidations.push('createdAt property is required');
     if (isSynced) hasSynced = true;
     return [
         errosValidations.length > 0 ? errosValidations.join(', ') : '',

@@ -3,6 +3,7 @@ import { IDestinationReminderCalendarDatasource } from "../../domain/datasources
 import { CreateReminderDto } from "../../domain/dtos/reminder-calendar/create_reminders-calendar.dto";
 import { Reminder } from "../../domain/entities/reminder.entity";
 import authorize from "../../data/google-cloud";
+import { create } from "domain";
 export class GoogleCalendarDataSource implements IDestinationReminderCalendarDatasource{
     private authClient!: Auth.OAuth2Client;
     private readonly calendarId: string = 'primary';
@@ -11,6 +12,7 @@ export class GoogleCalendarDataSource implements IDestinationReminderCalendarDat
         // Initialize Google Calendar API client with the provided API key
     }
     async postMultipleRemindersAsync(newReminder: Reminder[]): Promise<CreateReminderDto[]> {
+        const now = new Date();
         const client = await authorize();
         this.authClient = client!;
         this.calendar = google.calendar({ version: 'v3', auth: this.authClient });
@@ -33,8 +35,8 @@ export class GoogleCalendarDataSource implements IDestinationReminderCalendarDat
                 title: reminder.title,
                 remindAt: reminder.remindAt,
                 startDate: reminder.startDate,
+                createdAt: now,
                 endDate: reminder.endDate,
-                createdAt: reminder.createdAt,
                 updatedAt: reminder.updatedAt,
                 message: reminder.message,
                 id: reminder.id,

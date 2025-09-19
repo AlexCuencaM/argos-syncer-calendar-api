@@ -41,7 +41,8 @@ export class ConsoleServer{
         // Execution
         const newRemindersFiltered = await postFirestoreUsecase.execute();
         const remindersSyncedResults = await postUsecase.execute(newRemindersFiltered);
-        await deleteFailedRemindersUsecase.execute(remindersSyncedResults);
+        const results = await deleteFailedRemindersUsecase.execute(remindersSyncedResults);
+        console.log("Sync results:", results);
         return 0;
     }
 }

@@ -18,10 +18,17 @@ export class FilterExitingReminderDbUsecase implements IFilterExitingReminderDbU
         const filteredReminders = newOrExistingReminders.filter(ne =>
             !existingRemindersResults.some(e => e.title === ne.title)
         );
-        // if there are new reminders, existing reminders and no filtered reminders, return the new reminders as filtered
-        if(newOrExistingReminders.length > 0 && existingRemindersResults.length > 0 && filteredReminders.length === 0){
-            return [newOrExistingReminders, existingRemindersResults, newOrExistingReminders];
-        }
-        return [newOrExistingReminders, existingRemindersResults, filteredReminders];
+        const results = [newOrExistingReminders, existingRemindersResults, filteredReminders];
+        console.log("Filtered reminders:", {
+            newOrExistingRemindersCount: newOrExistingReminders.length,
+            existingRemindersCount: existingRemindersResults.length,
+            filteredRemindersCount: filteredReminders.length,
+        });
+        console.log("Filtered reminders details:", {
+            newOrExistingReminders: results[0]?.length,
+            existingRemindersResults: results[1]?.length,
+            filteredReminders: results[2]?.length,
+        });
+        return results;
     }
 }
