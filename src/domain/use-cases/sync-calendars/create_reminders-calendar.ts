@@ -1,6 +1,6 @@
 import { CreateReminderDto } from "../../dtos/reminder-calendar/create_reminders-calendar.dto";
 import { Reminder } from "../../entities/reminder.entity";
-import { SyncReminderCalendarRepository } from "../../repositories/sync_reminder-calendar.repository";
+import { ISyncReminderCalendarRepository } from "../../repositories/sync_reminder-calendar.repository";
 
 export interface PostRemindersCalendarUsecase{
     execute(newReminder:Reminder[]): Promise<CreateReminderDto[]>;
@@ -8,7 +8,7 @@ export interface PostRemindersCalendarUsecase{
 
 export class PostRemindersCalendar implements PostRemindersCalendarUsecase{
     constructor(
-        private readonly repository: SyncReminderCalendarRepository
+        private readonly repository: ISyncReminderCalendarRepository
     ){}
     execute(newReminders: Reminder[]): Promise<CreateReminderDto[]> {
         return this.repository.postMultipleRemindersAsync(newReminders);

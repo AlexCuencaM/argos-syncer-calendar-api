@@ -9,7 +9,6 @@ export class GoogleCalendarDataSource implements DestinationReminderCalendarData
     private calendar!: calendar_v3.Calendar; 
     constructor(){
         // Initialize Google Calendar API client with the provided API key
-        
     }
     async postMultipleRemindersAsync(newReminder: Reminder[]): Promise<CreateReminderDto[]> {
         const client = await authorize();
@@ -38,16 +37,16 @@ export class GoogleCalendarDataSource implements DestinationReminderCalendarData
                 createdAt: reminder.createdAt,
                 updatedAt: reminder.updatedAt,
                 message: reminder.message,
-                id: reminder.id
+                id: reminder.id,
             });
-            await this.calendar.events.insert({
+            this.calendar.events.insert({
                 calendarId: this.calendarId,
                 requestBody: event,
             }, (err: any, res: any) => {
                 if (err) {
                     console.error('Error creating event: ', err);
-                    return;
                 }
+                dto!.isSynced = true;
                 eventsReminder.push(dto!);
                 console.log('Event created: %s', res?.data.htmlLink);
             });

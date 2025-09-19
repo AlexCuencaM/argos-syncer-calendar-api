@@ -1,9 +1,9 @@
 import { ReminderCalendarDataSource } from "../../domain/datasources/reminder-calendar.datasource";
 import { CreateReminderDto } from "../../domain/dtos/reminder-calendar/create_reminders-calendar.dto";
 import { Reminder } from "../../domain/entities/reminder.entity";
-import { ReminderCalendarRepository } from "../../domain/repositories/reminder-calendar.repository";
+import { IReminderCalendarRepository } from "../../domain/repositories/reminder-calendar.repository";
 
-export class ReminderCalendarRepositoryImpl implements ReminderCalendarRepository{
+export class ReminderCalendarRepositoryImpl implements IReminderCalendarRepository{
     constructor(
         private readonly datasource:ReminderCalendarDataSource
     ){}

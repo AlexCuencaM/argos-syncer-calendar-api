@@ -1,20 +1,18 @@
 import { Reminder } from "../../entities/reminder.entity";
-import { ReminderCalendarRepository } from "../../repositories/reminder-calendar.repository";
+import { IReminderCalendarRepository } from "../../repositories/reminder-calendar.repository";
+import { IFilterExitingReminderDbUsecase } from "./get_filter__new-reminders";
 
-export interface PostMultipleRemindersDbUsecase{
+export interface IPostMultipleRemindersDbUsecase{
     execute(newOrExistingReminders:Reminder[], existingReminders: Reminder[]): Promise<Reminder[]>;
 }
 
-export class PostMultipleRemindersDb implements PostMultipleRemindersDbUsecase{
+export class PostMultipleRemindersDb implements IPostMultipleRemindersDbUsecase{
     constructor(
-        private readonly repository: ReminderCalendarRepository
+        private readonly repository: IReminderCalendarRepository,
+        private readonly filterUseCase: IFilterExitingReminderDbUsecase
     ){}
-    execute(newOrExistingReminders: Reminder[], existingReminders: Reminder[]): Promise<Reminder[]> {
-        const newReminders = newOrExistingReminders.filter(ne =>
-            !existingReminders.some(e => e.title === ne.title)
-        );
-        if(newReminders.length===0) return Promise.resolve([]);
-        // const testReminder = [newReminders[0]!];
-        return this.repository.postMultipleRemindersAsync(newReminders);
+    async execute(): Promise<Reminder[]> {
+        const [, , filteredReminders] = await this.filterUseCase.execute();
+        return this.repository.postMultipleRemindersAsync(filteredReminders!);
     }
 }

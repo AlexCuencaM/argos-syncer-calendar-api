@@ -9,6 +9,7 @@ export class CreateReminderDto{
         private readonly createdAt: Date,
         private readonly updatedAt: Date,
         private readonly message: string | null = null,
+        public isSynced: boolean | null = false,
     ) {}
     static create( props: {[key:string]: any} ): [string?, CreateReminderDto?]  {
 
@@ -21,6 +22,7 @@ export class CreateReminderDto{
         createdAt,
         updatedAt,
         message = null,
+        isSynced = false
     } = props;
     if (!userId) return ['userId property is required'];
     if (!title) return ['title property is required'];
@@ -38,7 +40,8 @@ export class CreateReminderDto{
             remindAt,
             createdAt,
             updatedAt,
-            message
+            message,
+            isSynced
         )
     ];
   }
