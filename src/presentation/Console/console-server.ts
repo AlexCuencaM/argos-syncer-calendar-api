@@ -26,7 +26,6 @@ export class ConsoleServer{
         const originDatasource = new BlackboardCalendarDataSource(this.options.iscUrl, DayJsProvider, convert);
         const destinationDatasource = new GoogleCalendarDataSource();
         const firestoreDatasource = new ReminderCalendarDatasourceFirestore();
-
         const repository = new SyncReminderRepositoryImpl(originDatasource, destinationDatasource);
         const firestoreRepository = new ReminderCalendarRepositoryImpl(firestoreDatasource);
         // Use cases
@@ -42,7 +41,7 @@ export class ConsoleServer{
         const newRemindersFiltered = await postFirestoreUsecase.execute();
         const remindersSyncedResults = await postUsecase.execute(newRemindersFiltered);
         const results = await deleteFailedRemindersUsecase.execute(remindersSyncedResults);
-        console.log("Sync results:", results);
+        console.log("Sync delete results:", results);
         return 0;
     }
 }
