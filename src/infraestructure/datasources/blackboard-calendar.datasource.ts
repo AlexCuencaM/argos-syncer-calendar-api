@@ -1,4 +1,4 @@
-import { OriginReminderCalendarDatasource } from "../../domain/datasources/origin_reminder-calendar.datasource";
+import { IOriginReminderCalendarDatasource } from "../../domain/datasources/origin_reminder-calendar.datasource";
 import { Reminder } from "../../domain/entities/reminder.entity";
 export interface DateProvider{
     parseDate: (dateString: string, format: string) => Date;
@@ -24,7 +24,7 @@ interface VEvent{
 }
 
 export type ICSConverter = (icsData: string) => ICSConverter2Json;
-export class BlackboardCalendarDataSource implements OriginReminderCalendarDatasource {
+export class BlackboardCalendarDataSource implements IOriginReminderCalendarDatasource {
     // Implement methods to interact with Blackboard Calendar API
     constructor(
         private readonly fileLocation: string,

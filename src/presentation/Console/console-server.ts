@@ -10,6 +10,7 @@ import { ReminderCalendarRepositoryImpl } from "../../infraestructure/repositori
 import { ReminderCalendarDatasourceFirestore } from "../../infraestructure/datasources/firebase_reminder-calendar.datasource";
 import { GetAllRemindersDb } from "../../domain/use-cases/reminder-calendar/get_reminder-calendar";
 import { FilterExitingReminderDbUsecase } from "../../domain/use-cases/reminder-calendar/get_filter__new-reminders";
+import { DeleteRemindersCalendar } from "../../domain/use-cases/sync-calendars/delete_reminders-calendar";
 
 interface options{
     iscUrl: string;
@@ -31,14 +32,16 @@ export class ConsoleServer{
         // Use cases
         const getCalendarUseCase = new GetLastMonthRemindersCalendar(repository);
         const fireStoreUseCase = new GetAllRemindersDb(firestoreRepository);
-        const newRemindersFilteredUseCase = new FilterExitingReminderDbUsecase(getCalendarUseCase, fireStoreUseCase);
-        const postFirestoreUsecase = new PostMultipleRemindersDb(firestoreRepository, newRemindersFilteredUseCase);
+        const newRemindersFilteredUseCase = 
+            new FilterExitingReminderDbUsecase(getCalendarUseCase, fireStoreUseCase);
+        const postFirestoreUsecase = 
+            new PostMultipleRemindersDb(firestoreRepository, newRemindersFilteredUseCase);
         const postUsecase = new PostRemindersCalendar(repository);
-
+        const deleteFailedRemindersUsecase = new DeleteRemindersCalendar(firestoreRepository);
+        // Execution
         const newRemindersFiltered = await postFirestoreUsecase.execute();
         const remindersSyncedResults = await postUsecase.execute(newRemindersFiltered);
-
-        console.log("Fetched reminders synced:", remindersSyncedResults);
+        await deleteFailedRemindersUsecase.execute(remindersSyncedResults);
         return 0;
     }
 }

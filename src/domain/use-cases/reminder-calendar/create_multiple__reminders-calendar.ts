@@ -12,7 +12,8 @@ export class PostMultipleRemindersDb implements IPostMultipleRemindersDbUsecase{
         private readonly filterUseCase: IFilterExitingReminderDbUsecase
     ){}
     async execute(): Promise<Reminder[]> {
-        const [, , filteredReminders] = await this.filterUseCase.execute();
+        const [newOrExistingReminders, existingReminders, filteredReminders] = await this.filterUseCase.execute();
+        console.log([newOrExistingReminders?.length, existingReminders?.length, filteredReminders?.length])
         return this.repository.postMultipleRemindersAsync(filteredReminders!);
     }
 }

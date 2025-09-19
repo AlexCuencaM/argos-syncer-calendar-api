@@ -1,6 +1,6 @@
 export class CreateReminderDto{
     constructor(
-        private readonly id: string | undefined,
+        public readonly id: string | undefined,
         private readonly userId: string,
         private readonly startDate: Date,
         private readonly endDate: Date,
@@ -12,7 +12,7 @@ export class CreateReminderDto{
         public isSynced: boolean | null = false,
     ) {}
     static create( props: {[key:string]: any} ): [string?, CreateReminderDto?]  {
-
+    const errosValidations: string[] = [];
     const {
         userId,
         title,
@@ -21,16 +21,17 @@ export class CreateReminderDto{
         startDate,
         createdAt,
         updatedAt,
+        isSynced,
         message = null,
-        isSynced = false
     } = props;
-    if (!userId) return ['userId property is required'];
-    if (!title) return ['title property is required'];
-    if (!remindAt) return ['remindAt property is required'];
-    if (!createdAt) return ['createdAt property is required'];
-    if (!updatedAt) return ['updatedAt property is required'];
+    let hasSynced = false;
+    if (!userId) errosValidations.push('userId property is required');
+    if (!title) errosValidations.push('title property is required');
+    if (!remindAt) errosValidations.push('remindAt property is required');
+    if (!createdAt) errosValidations.push('createdAt property is required');
+    if (isSynced) hasSynced = true;
     return [
-        ,
+        errosValidations.length > 0 ? errosValidations.join(', ') : '',
         new CreateReminderDto(
             '',
             userId,
@@ -41,7 +42,7 @@ export class CreateReminderDto{
             createdAt,
             updatedAt,
             message,
-            isSynced
+            hasSynced
         )
     ];
   }

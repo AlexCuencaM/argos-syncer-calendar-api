@@ -1,9 +1,9 @@
 import { Auth, google, calendar_v3 } from "googleapis";
-import { DestinationReminderCalendarDatasource } from "../../domain/datasources/destination_reminder-calendar.datasource";
+import { IDestinationReminderCalendarDatasource } from "../../domain/datasources/destination_reminder-calendar.datasource";
 import { CreateReminderDto } from "../../domain/dtos/reminder-calendar/create_reminders-calendar.dto";
 import { Reminder } from "../../domain/entities/reminder.entity";
 import authorize from "../../data/google-cloud";
-export class GoogleCalendarDataSource implements DestinationReminderCalendarDatasource{
+export class GoogleCalendarDataSource implements IDestinationReminderCalendarDatasource{
     private authClient!: Auth.OAuth2Client;
     private readonly calendarId: string = 'primary';
     private calendar!: calendar_v3.Calendar; 
@@ -28,7 +28,7 @@ export class GoogleCalendarDataSource implements DestinationReminderCalendarData
                     'timeZone': 'America/Guayaquil',
                 },
             };
-            const [, dto] = CreateReminderDto.create({
+            const [err, dto] = CreateReminderDto.create({
                 userId: reminder.userId,
                 title: reminder.title,
                 remindAt: reminder.remindAt,
@@ -39,17 +39,21 @@ export class GoogleCalendarDataSource implements DestinationReminderCalendarData
                 message: reminder.message,
                 id: reminder.id,
             });
-            this.calendar.events.insert({
-                calendarId: this.calendarId,
-                requestBody: event,
-            }, (err: any, res: any) => {
-                if (err) {
-                    console.error('Error creating event: ', err);
-                }
+            if(err) {
+                console.error('Error creating CreateReminderDto: ', err);
+                continue;
+            }
+            try {
+                const res = await this.calendar.events.insert({
+                    calendarId: this.calendarId,
+                    requestBody: event,
+                });
                 dto!.isSynced = true;
                 eventsReminder.push(dto!);
-                console.log('Event created: %s', res?.data.htmlLink);
-            });
+                console.log('Event created: %s', res.data.htmlLink);
+            } catch (err) {
+                console.error('Error creating event: ', err);
+            }
         }
         return eventsReminder;
     }

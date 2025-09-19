@@ -1,5 +1,5 @@
 import { Reminder } from "../entities/reminder.entity";
 
-export interface OriginReminderCalendarDatasource{
+export interface IOriginReminderCalendarDatasource{
     getAllAsync(): Promise<Reminder[]>; // For url
 }
